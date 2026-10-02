@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Colors, Config } from '../constants';
 import { geminiService } from '../services/geminiService';
+import Icon from './icons/Icon.js';
 
 export const SettingsView = () => {
   const [apiKey, setApiKey] = useState(geminiService.getApiKey());
@@ -34,7 +35,7 @@ export const SettingsView = () => {
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>Google Gemini AI Integration</Text>
           <View style={styles.aiPill}>
-            <Text style={styles.aiPillText}>v3.8 Flash</Text>
+            <Text style={styles.aiPillText}>v3.5 Flash Lite</Text>
           </View>
         </View>
 
@@ -60,8 +61,9 @@ export const SettingsView = () => {
           onPress={handleSaveApiKey}
           activeOpacity={0.8}
         >
+          {savedSuccess && <Icon name="check" size={16} color={Colors.textInverse} />}
           <Text style={styles.saveBtnText}>
-            {savedSuccess ? '✓ API Key Saved & Active' : 'Update Gemini API Key'}
+            {savedSuccess ? 'API Key Saved & Active' : 'Update Gemini API Key'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -212,9 +214,12 @@ const styles = StyleSheet.create({
   },
   saveBtn: {
     backgroundColor: Colors.primary,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
     paddingVertical: 12,
     borderRadius: 8,
-    alignItems: 'center',
   },
   saveBtnSuccess: {
     backgroundColor: '#4ADE80',

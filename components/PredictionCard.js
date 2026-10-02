@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../constants';
 import { getPredictionConfidenceBadge } from '../services/predictionEngine';
+import Icon from './icons/Icon.js';
 
 export const PredictionCard = ({
   match,
@@ -53,7 +54,10 @@ export const PredictionCard = ({
       {/* AI Recommended Pick Box (Olive Ink with Warm Lime accents) */}
       <View style={styles.pickBox}>
         <View style={styles.pickHeader}>
-          <Text style={styles.pickTag}>🎯 GEMINI AI PICK</Text>
+          <View style={styles.pickTagRow}>
+            <Icon name="target" size={13} color={Colors.primary} />
+            <Text style={styles.pickTag}>GEMINI AI PICK</Text>
+          </View>
           <Text style={styles.predictedScore}>
             Score: <Text style={styles.scoreHighlight}>{prediction.predictedScore}</Text>
           </Text>
@@ -78,7 +82,8 @@ export const PredictionCard = ({
           activeOpacity={0.7}
           onPress={() => onSelectMatch(match)}
         >
-          <Text style={styles.detailButtonText}>🧠 Deep AI Dossier</Text>
+          <Icon name="brain" size={14} color={Colors.primary} />
+          <Text style={styles.detailButtonText}>Deep AI Dossier</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -89,13 +94,18 @@ export const PredictionCard = ({
           activeOpacity={0.8}
           onPress={() => onAddToSlip(match)}
         >
+          {isInSlip ? (
+            <Icon name="check" size={13} color={Colors.primary} />
+          ) : (
+            <Icon name="slip" size={13} color={Colors.textInverse} />
+          )}
           <Text
             style={[
               styles.slipButtonText,
               isInSlip ? styles.slipButtonTextAdded : styles.slipButtonTextActive,
             ]}
           >
-            {isInSlip ? '✓ In Slip' : '+ Add to Slip'}
+            {isInSlip ? 'In Slip' : 'Add to Slip'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -181,6 +191,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 6,
   },
+  pickTagRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
   pickTag: {
     color: Colors.primary,
     fontSize: 10,
@@ -233,10 +248,13 @@ const styles = StyleSheet.create({
   },
   detailButton: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: Colors.card,
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
     borderWidth: 1,
     borderColor: Colors.border,
   },
@@ -247,9 +265,12 @@ const styles = StyleSheet.create({
   },
   slipButton: {
     flex: 1,
+    flexDirection: 'row',
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
   },
   slipButtonActive: {
     backgroundColor: Colors.primary,

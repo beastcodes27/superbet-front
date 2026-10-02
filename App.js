@@ -26,6 +26,7 @@ import AIAnalystView from './components/AIAnalystView.js';
 import StatsTrackerView from './components/StatsTrackerView.js';
 import SettingsView from './components/SettingsView.js';
 import TabNavigation from './components/TabNavigation.js';
+import Icon from './components/icons/Icon.js';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('predictions');
@@ -159,7 +160,9 @@ export default function App() {
             }}
             ListEmptyComponent={
               <View style={styles.emptyView}>
-                <Text style={styles.emptyEmoji}>🔍</Text>
+                <View style={styles.emptyIconBox}>
+                  <Icon name="search" size={32} color={Colors.primary} />
+                </View>
                 <Text style={styles.emptyTitle}>No Matches Matching 93%+ Filter</Text>
                 <Text style={styles.emptyText}>
                   Try selecting 'Tomorrow' or 'This Weekend' for more high-probability basketball & sports predictions.
@@ -200,6 +203,7 @@ export default function App() {
             <View style={styles.floatingCount}>
               <Text style={styles.floatingCountText}>{betSlip.length}</Text>
             </View>
+            <Icon name="slip" size={16} color={Colors.textInverse} />
             <Text style={styles.floatingLabel}>View Active Bet Slip</Text>
           </View>
           <Text style={styles.floatingArrow}>Tap to Open →</Text>
@@ -252,9 +256,16 @@ const styles = StyleSheet.create({
     padding: 36,
     alignItems: 'center',
   },
-  emptyEmoji: {
-    fontSize: 40,
-    marginBottom: 10,
+  emptyIconBox: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: Colors.cardHighlight,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   emptyTitle: {
     color: Colors.text,

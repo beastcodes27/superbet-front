@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Colors } from '../constants';
 import { calculateParlayOdds, calculatePayout } from '../services/predictionEngine';
+import Icon from './icons/Icon.js';
 
 export const BetSlipModal = ({
   visible,
@@ -60,14 +61,14 @@ export const BetSlipModal = ({
               activeOpacity={0.7}
               onPress={onClose}
             >
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Icon name="close" size={18} color={Colors.textMuted} />
             </TouchableOpacity>
           </View>
 
           {placedSuccess ? (
             <View style={styles.successContainer}>
               <View style={styles.successIconBox}>
-                <Text style={styles.successIcon}>✓</Text>
+                <Icon name="check" size={32} color={Colors.textInverse} />
               </View>
               <Text style={styles.successTitle}>Bets Placed Successfully!</Text>
               <Text style={styles.successSubtitle}>
@@ -81,7 +82,9 @@ export const BetSlipModal = ({
             <>
               {betSlip.length === 0 ? (
                 <View style={styles.emptyContainer}>
-                  <Text style={styles.emptyEmoji}>📋</Text>
+                  <View style={styles.emptyIconBox}>
+                    <Icon name="slip" size={36} color={Colors.primary} />
+                  </View>
                   <Text style={styles.emptyTitle}>Your Bet Slip is Empty</Text>
                   <Text style={styles.emptySubtitle}>
                     Select 93%+ high confidence predictions to build your accumulator.
@@ -99,8 +102,9 @@ export const BetSlipModal = ({
                         <TouchableOpacity
                           onPress={() => onRemoveBet(match.id)}
                           activeOpacity={0.7}
+                          style={styles.removeBtn}
                         >
-                          <Text style={styles.removeText}>✕</Text>
+                          <Icon name="close" size={15} color={Colors.textMuted} />
                         </TouchableOpacity>
                       </View>
 
@@ -256,11 +260,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border,
   },
-  closeButtonText: {
-    color: Colors.textMuted,
-    fontSize: 16,
-    fontWeight: '700',
-  },
   scroll: {
     padding: 20,
     gap: 12,
@@ -283,10 +282,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  removeText: {
-    color: Colors.textMuted,
-    fontSize: 14,
-    fontWeight: '800',
+  removeBtn: {
+    padding: 4,
   },
   betItemBottom: {
     flexDirection: 'row',
@@ -447,9 +444,16 @@ const styles = StyleSheet.create({
     padding: 40,
     alignItems: 'center',
   },
-  emptyEmoji: {
-    fontSize: 48,
-    marginBottom: 12,
+  emptyIconBox: {
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    backgroundColor: Colors.card,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   emptyTitle: {
     color: Colors.text,
@@ -475,11 +479,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
-  },
-  successIcon: {
-    color: Colors.textInverse,
-    fontSize: 32,
-    fontWeight: '900',
   },
   successTitle: {
     color: Colors.text,

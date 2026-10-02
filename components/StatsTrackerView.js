@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../constants';
 import { calculateHistoricalStats } from '../services/predictionEngine';
+import Icon from './icons/Icon.js';
 
 export const StatsTrackerView = ({ betHistory = [] }) => {
   const stats = calculateHistoricalStats();
@@ -11,7 +12,10 @@ export const StatsTrackerView = ({ betHistory = [] }) => {
       {/* Top Banner */}
       <View style={styles.topCard}>
         <View style={styles.bannerHeader}>
-          <Text style={styles.bannerTag}>⚡ 93%+ MODEL AUDIT</Text>
+          <View style={styles.bannerTagRow}>
+            <Icon name="bolt" size={13} color={Colors.primary} />
+            <Text style={styles.bannerTag}>93%+ MODEL AUDIT</Text>
+          </View>
           <Text style={styles.liveAuditedTag}>VERIFIED HISTORICAL</Text>
         </View>
 
@@ -36,7 +40,10 @@ export const StatsTrackerView = ({ betHistory = [] }) => {
             <Text style={styles.subStatText}>Picks Won</Text>
           </View>
           <View style={styles.subStatCol}>
-            <Text style={styles.subStatNum}>{stats.activeStreak}🔥</Text>
+            <View style={styles.streakRow}>
+              <Text style={styles.subStatNum}>{stats.activeStreak}</Text>
+              <Icon name="flame" size={16} color="#FF6B35" />
+            </View>
             <Text style={styles.subStatText}>Current Streak</Text>
           </View>
         </View>
@@ -127,6 +134,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
+  bannerTagRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
   bannerTag: {
     color: Colors.primary,
     fontSize: 11,
@@ -181,6 +193,11 @@ const styles = StyleSheet.create({
   },
   subStatCol: {
     alignItems: 'center',
+  },
+  streakRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   subStatNum: {
     color: Colors.text,

@@ -11,6 +11,7 @@ import {
 import { Colors } from '../constants';
 import { geminiService } from '../services/geminiService';
 import { getPredictionConfidenceBadge } from '../services/predictionEngine';
+import Icon from './icons/Icon.js';
 
 export const MatchDetailModal = ({
   visible,
@@ -68,7 +69,7 @@ export const MatchDetailModal = ({
               activeOpacity={0.7}
               onPress={onClose}
             >
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Icon name="close" size={20} color={Colors.textMuted} />
             </TouchableOpacity>
           </View>
 
@@ -98,7 +99,10 @@ export const MatchDetailModal = ({
 
             {/* AI Recommendation Box */}
             <View style={styles.sectionBox}>
-              <Text style={styles.sectionHeading}>🎯 Recommended Selection</Text>
+              <View style={styles.sectionHeadingRow}>
+                <Icon name="target" size={16} color={Colors.primary} />
+                <Text style={styles.sectionHeading}>Recommended Selection</Text>
+              </View>
               <View style={styles.recommendationRow}>
                 <Text style={styles.pickText}>{prediction.recommendedPick}</Text>
                 <View style={styles.oddsPill}>
@@ -114,7 +118,10 @@ export const MatchDetailModal = ({
 
             {/* Key Matchup Factors */}
             <View style={styles.sectionBox}>
-              <Text style={styles.sectionHeading}>⚡ Quantitative Edge Factors</Text>
+              <View style={styles.sectionHeadingRow}>
+                <Icon name="bolt" size={16} color={Colors.primary} />
+                <Text style={styles.sectionHeading}>Quantitative Edge Factors</Text>
+              </View>
               {prediction.keyFactors?.map((factor, index) => (
                 <View key={index} style={styles.factorRow}>
                   <Text style={styles.factorBullet}>•</Text>
@@ -137,7 +144,10 @@ export const MatchDetailModal = ({
 
             {/* Bankroll Unit Recommendation */}
             <View style={styles.bankrollBox}>
-              <Text style={styles.bankrollLabel}>💰 Bankroll Sizing Recommendation:</Text>
+              <View style={styles.bankrollTitleRow}>
+                <Icon name="cash" size={16} color={Colors.primary} />
+                <Text style={styles.bankrollLabel}>Bankroll Sizing Recommendation:</Text>
+              </View>
               <Text style={styles.bankrollValue}>{prediction.recommendedStake}</Text>
             </View>
 
@@ -151,9 +161,12 @@ export const MatchDetailModal = ({
               {loading ? (
                 <ActivityIndicator color={Colors.primary} size="small" />
               ) : (
-                <Text style={styles.reanalyzeText}>
-                  ✨ Refresh Prediction with Gemini 3.8 Live
-                </Text>
+                <View style={styles.reanalyzeRow}>
+                  <Icon name="sparkles" size={15} color={Colors.primary} />
+                  <Text style={styles.reanalyzeText}>
+                    Refresh Prediction with Gemini 3.5 Live
+                  </Text>
+                </View>
               )}
             </TouchableOpacity>
           </ScrollView>
@@ -170,14 +183,21 @@ export const MatchDetailModal = ({
                 onAddToSlip(activeMatch);
               }}
             >
-              <Text
-                style={[
-                  styles.ctaText,
-                  isInSlip ? styles.ctaTextAdded : styles.ctaTextActive,
-                ]}
-              >
-                {isInSlip ? '✓ Added in Bet Slip' : '+ Add Pick to Bet Slip'}
-              </Text>
+              <View style={styles.ctaContentRow}>
+                {isInSlip ? (
+                  <Icon name="check" size={16} color={Colors.primary} />
+                ) : (
+                  <Icon name="slip" size={16} color={Colors.textInverse} />
+                )}
+                <Text
+                  style={[
+                    styles.ctaText,
+                    isInSlip ? styles.ctaTextAdded : styles.ctaTextActive,
+                  ]}
+                >
+                  {isInSlip ? 'Added in Bet Slip' : 'Add Pick to Bet Slip'}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -277,11 +297,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border,
   },
+  sectionHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginBottom: 10,
+  },
   sectionHeading: {
     color: Colors.text,
     fontSize: 15,
     fontWeight: '800',
-    marginBottom: 10,
   },
   recommendationRow: {
     flexDirection: 'row',
@@ -368,11 +393,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.primary,
   },
+  bankrollTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
   bankrollLabel: {
     color: Colors.primary,
     fontSize: 12,
     fontWeight: '700',
-    marginBottom: 2,
   },
   bankrollValue: {
     color: Colors.text,
@@ -386,6 +416,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.primary,
+  },
+  reanalyzeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
   },
   reanalyzeText: {
     color: Colors.primary,
@@ -410,6 +446,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryLight,
     borderWidth: 1,
     borderColor: Colors.borderLight,
+  },
+  ctaContentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
   },
   ctaText: {
     fontSize: 15,
