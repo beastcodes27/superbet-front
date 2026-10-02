@@ -4,6 +4,7 @@
  */
 
 import { Config } from '../constants/config.js';
+import storageService from './storageService.js';
 
 const defaultApiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || '';
 const defaultModel = 'gemini-3.5-flash-lite';
@@ -11,7 +12,7 @@ const defaultEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models
 
 class GeminiService {
   constructor() {
-    this.apiKey = Config?.defaultGeminiApiKey || defaultApiKey;
+    this.apiKey = storageService?.getCustomApiKey() || Config?.defaultGeminiApiKey || defaultApiKey;
     this.model = Config?.geminiModel || defaultModel;
     this.endpoint = Config?.geminiApiEndpoint || defaultEndpoint;
   }
@@ -19,10 +20,18 @@ class GeminiService {
   setApiKey(key) {
     if (key && typeof key === 'string') {
       this.apiKey = key.trim();
+      storageService?.setCustomApiKey(this.apiKey);
     }
   }
 
   getApiKey() {
+    if (!this.apiKey || !this.apiKey.trim()) {
+      this.apiKey =
+        storageService?.getCustomApiKey() ||
+        process.env.EXPO_PUBLIC_GEMINI_API_KEY ||
+        Config?.defaultGeminiApiKey ||
+        '';
+    }
     return this.apiKey;
   }
 
@@ -114,6 +123,13 @@ Keep your tone authoritative, concise, and focused on value betting (+EV).
    * Core REST call to Google Generative Language API with automatic model failover
    */
   async callGeminiApi(promptText) {
+    const activeKey = this.getApiKey();
+    if (!activeKey || !activeKey.trim()) {
+      throw new Error(
+        'Gemini API key is not configured. Please open Settings in the dock and set your Gemini API key or ensure EXPO_PUBLIC_GEMINI_API_KEY is configured in your .env file.'
+      );
+    }
+
     const modelsToTry = [
       this.model,
       'gemini-3.5-flash-lite',
@@ -125,7 +141,7 @@ Keep your tone authoritative, concise, and focused on value betting (+EV).
 
     for (const modelName of modelsToTry) {
       try {
-        const url = `${Config.geminiApiEndpoint}/${modelName}:generateContent?key=${this.apiKey}`;
+        const url = `${Config.geminiApiEndpoint}/${modelName}:generateContent?key=${encodeURIComponent(activeKey)}`;
 
         const requestBody = {
           contents: [
@@ -152,6 +168,7 @@ Keep your tone authoritative, concise, and focused on value betting (+EV).
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'x-goog-api-key': activeKey,
           },
           body: JSON.stringify(requestBody),
           signal: controller.signal,

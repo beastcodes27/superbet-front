@@ -52,6 +52,15 @@ class StorageService {
     };
   }
 
+  setCustomApiKey(key) {
+    this.customApiKey = key && typeof key === 'string' ? key.trim() : null;
+    this.notify();
+  }
+
+  getCustomApiKey() {
+    return this.customApiKey;
+  }
+
   addToBetSlip(item) {
     const exists = this.betSlip.find((b) => b.id === item.id);
     if (!exists) {
