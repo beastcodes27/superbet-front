@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../constants';
+import Icon from './icons/Icon.js';
 
 export const Header = ({ onOpenBetSlip, betSlipCount = 0 }) => {
   return (
@@ -12,7 +13,7 @@ export const Header = ({ onOpenBetSlip, betSlipCount = 0 }) => {
           </View>
           <View style={styles.aiTag}>
             <View style={styles.aiDot} />
-            <Text style={styles.aiTagText}>GEMINI 3.8 AI</Text>
+            <Text style={styles.aiTagText}>GEMINI 3.5 AI</Text>
           </View>
         </View>
 
@@ -22,6 +23,7 @@ export const Header = ({ onOpenBetSlip, betSlipCount = 0 }) => {
           activeOpacity={0.8}
           onPress={onOpenBetSlip}
         >
+          <Icon name="slip" size={14} color={Colors.primary} />
           <Text style={styles.slipButtonText}>Slip</Text>
           {betSlipCount > 0 && (
             <View style={styles.countBadge}>
@@ -32,8 +34,9 @@ export const Header = ({ onOpenBetSlip, betSlipCount = 0 }) => {
       </View>
 
       <View style={styles.guaranteeRow}>
+        <Icon name="bolt" size={13} color={Colors.primary} />
         <Text style={styles.guaranteeText}>
-          ⚡ <Text style={styles.highlight}>93%+ Accuracy</Text> AI-Filtered Sports Value Picks
+          <Text style={styles.highlight}>93%+ Accuracy</Text> AI-Filtered Sports Value Picks
         </Text>
       </View>
     </View>
@@ -123,6 +126,9 @@ const styles = StyleSheet.create({
   },
   guaranteeRow: {
     marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
   },
   guaranteeText: {
     color: Colors.textMuted,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../constants';
+import Icon from './icons/Icon.js';
 
 export const ConfidenceFilter = ({
   isOnlyHighConfidence,
@@ -18,7 +19,11 @@ export const ConfidenceFilter = ({
         onPress={onToggleHighConfidence}
       >
         <View style={styles.badgeIndicator}>
-          <Text style={styles.badgeSymbol}>{isOnlyHighConfidence ? '✓' : '⚡'}</Text>
+          <Icon
+            name={isOnlyHighConfidence ? 'check' : 'bolt'}
+            size={11}
+            color={Colors.textInverse}
+          />
         </View>
         <Text
           style={[
@@ -71,11 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  badgeSymbol: {
-    color: Colors.textInverse,
-    fontSize: 10,
-    fontWeight: '900',
   },
   pillText: {
     fontSize: 12,

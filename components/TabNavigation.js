@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Colors } from '../constants';
+import Icon from './icons/Icon.js';
 
 export const TabNavigation = ({
   activeTab,
@@ -15,10 +16,10 @@ export const TabNavigation = ({
   betSlipCount = 0,
 }) => {
   const tabs = [
-    { id: 'predictions', label: 'Predictions', icon: '🎯' },
-    { id: 'analyst', label: 'AI Analyst', icon: '🧠' },
-    { id: 'stats', label: 'Audit 93%+', icon: '📊' },
-    { id: 'settings', label: 'Settings', icon: '⚙️' },
+    { id: 'predictions', label: 'Predictions', icon: 'target' },
+    { id: 'analyst', label: 'AI Analyst', icon: 'brain' },
+    { id: 'stats', label: 'Audit 93%+', icon: 'stats' },
+    { id: 'settings', label: 'Settings', icon: 'settings' },
   ];
 
   return (
@@ -44,14 +45,11 @@ export const TabNavigation = ({
                     isActive ? styles.iconSquircleActive : styles.iconSquircleInactive,
                   ]}
                 >
-                  <Text
-                    style={[
-                      styles.tabIcon,
-                      isActive ? styles.tabIconActive : styles.tabIconInactive,
-                    ]}
-                  >
-                    {tab.icon}
-                  </Text>
+                  <Icon
+                    name={tab.icon}
+                    size={20}
+                    color={isActive ? Colors.textInverse : Colors.primary}
+                  />
                 </View>
 
                 {/* Dock Label */}
@@ -79,7 +77,7 @@ export const TabNavigation = ({
               onPress={onOpenBetSlip}
             >
               <View style={[styles.iconSquircle, styles.slipSquircle]}>
-                <Text style={styles.slipIcon}>📋</Text>
+                <Icon name="slip" size={19} color={Colors.primary} />
                 <View style={styles.slipBadge}>
                   <Text style={styles.slipBadgeText}>{betSlipCount}</Text>
                 </View>
@@ -161,15 +159,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border,
   },
-  tabIcon: {
-    fontSize: 20,
-  },
-  tabIconActive: {
-    transform: [{ scale: 1.05 }],
-  },
-  tabIconInactive: {
-    opacity: 0.85,
-  },
   tabLabel: {
     fontSize: 10,
     fontWeight: '700',
@@ -194,9 +183,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: Colors.primary,
     position: 'relative',
-  },
-  slipIcon: {
-    fontSize: 19,
   },
   slipBadge: {
     position: 'absolute',
