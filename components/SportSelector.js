@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors, Sports } from '../constants';
+import Icon from './icons/Icon.js';
 
 export const SportSelector = ({ selectedSport, onSelectSport }) => {
   return (
@@ -22,7 +23,11 @@ export const SportSelector = ({ selectedSport, onSelectSport }) => {
               ]}
               onPress={() => onSelectSport(sport.id)}
             >
-              <Text style={styles.sportIcon}>{sport.icon}</Text>
+              <Icon
+                name={sport.icon}
+                size={16}
+                color={isSelected ? Colors.textInverse : Colors.primary}
+              />
               <Text
                 style={[
                   styles.sportName,
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    gap: 6,
+    gap: 7,
   },
   sportPillActive: {
     backgroundColor: Colors.primary,
@@ -64,9 +69,6 @@ const styles = StyleSheet.create({
   sportPillInactive: {
     backgroundColor: Colors.cardHighlight,
     borderColor: Colors.border,
-  },
-  sportIcon: {
-    fontSize: 16,
   },
   sportName: {
     fontSize: 13,

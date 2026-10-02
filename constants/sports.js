@@ -6,7 +6,7 @@ export const Sports = [
   {
     id: 'basketball',
     name: 'Basketball',
-    icon: '🏀',
+    icon: 'basketball',
     leagues: ['NBA', 'EuroLeague', 'NCAA Basketball', 'Liga ACB'],
     defaultMarket: 'Moneyline & Spread',
     markets: ['Moneyline', 'Spread', 'Total Points (Over/Under)', 'Player Points'],
@@ -14,7 +14,7 @@ export const Sports = [
   {
     id: 'football',
     name: 'Football',
-    icon: '⚽',
+    icon: 'football',
     leagues: ['Premier League', 'UEFA Champions League', 'La Liga', 'Serie A', 'Bundesliga'],
     defaultMarket: 'Match Result (1X2)',
     markets: ['Match Result', 'Both Teams to Score (BTTS)', 'Over/Under 2.5 Goals', 'Double Chance'],
@@ -22,7 +22,7 @@ export const Sports = [
   {
     id: 'tennis',
     name: 'Tennis',
-    icon: '🎾',
+    icon: 'tennis',
     leagues: ['ATP Masters', 'WTA Tour', 'Wimbledon', 'US Open'],
     defaultMarket: 'Match Winner',
     markets: ['Match Winner', 'Set Handicap', 'Total Games Over/Under'],
@@ -30,7 +30,7 @@ export const Sports = [
   {
     id: 'american_football',
     name: 'American Football',
-    icon: '🏈',
+    icon: 'american_football',
     leagues: ['NFL', 'NCAA Football'],
     defaultMarket: 'Spread & Total',
     markets: ['Moneyline', 'Point Spread', 'Total Points Over/Under'],
@@ -38,7 +38,7 @@ export const Sports = [
   {
     id: 'baseball',
     name: 'Baseball',
-    icon: '⚾',
+    icon: 'baseball',
     leagues: ['MLB', 'NPB Japan'],
     defaultMarket: 'Moneyline',
     markets: ['Moneyline', 'Run Line (-1.5)', 'Total Runs Over/Under'],
@@ -46,7 +46,7 @@ export const Sports = [
   {
     id: 'mma',
     name: 'MMA / UFC',
-    icon: '🥊',
+    icon: 'mma',
     leagues: ['UFC', 'Bellator', 'PFL'],
     defaultMarket: 'Bout Winner',
     markets: ['Moneyline Winner', 'Method of Victory', 'Round Over/Under'],

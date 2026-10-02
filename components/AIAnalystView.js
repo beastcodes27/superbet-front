@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Colors } from '../constants';
 import { geminiService } from '../services/geminiService';
+import Icon from './icons/Icon.js';
 
 export const AIAnalystView = ({ currentSport = 'Basketball' }) => {
   const [query, setQuery] = useState('');
@@ -18,15 +19,15 @@ export const AIAnalystView = ({ currentSport = 'Basketball' }) => {
     {
       id: 'welcome',
       sender: 'ai',
-      text: `👋 Welcome to SUPERBET AI Analyst powered by **Google Gemini 3.8 Flash**.\n\nI specialize in filtering high-confidence sports betting opportunities (rated **93%+ probability**). Ask me about any fixture, player props, or value spreads!`,
+      text: `Welcome to SUPERBET AI Analyst powered by **Google Gemini 3.5 Flash Lite**.\n\nI specialize in filtering high-confidence sports betting opportunities (rated **93%+ probability**). Ask me about any fixture, player props, or value spreads!`,
     },
   ]);
 
   const quickPrompts = [
-    `🏀 Top 93%+ Basketball Spread Pick for Today`,
-    `⚡ High-Probability NBA Totals (Over/Under)`,
-    `🎯 Safe 2-Leg EuroLeague & NBA Parlay`,
-    `⚽ Premier League Goal Value Breakdown`,
+    { icon: 'basketball', text: 'Top 93%+ Basketball Spread Pick for Today' },
+    { icon: 'bolt', text: 'High-Probability NBA Totals (Over/Under)' },
+    { icon: 'target', text: 'Safe 2-Leg EuroLeague & NBA Parlay' },
+    { icon: 'football', text: 'Premier League Goal Value Breakdown' },
   ];
 
   const handleSend = async (userPrompt) => {
@@ -127,10 +128,11 @@ export const AIAnalystView = ({ currentSport = 'Basketball' }) => {
             <TouchableOpacity
               key={i}
               style={styles.promptChip}
-              onPress={() => handleSend(p)}
+              onPress={() => handleSend(p.text)}
               activeOpacity={0.8}
             >
-              <Text style={styles.promptChipText}>{p}</Text>
+              <Icon name={p.icon} size={13} color={Colors.primary} />
+              <Text style={styles.promptChipText}>{p.text}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -291,12 +293,15 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   promptChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: Colors.card,
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: Colors.border,
+    gap: 6,
   },
   promptChipText: {
     color: Colors.textMuted,
